@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import FormCreatorItem from './formCreatorItem';
 
-class FormCreater extends React.Component {
+class FormCreator extends React.Component {
 	constructor() {
 		super();
 
@@ -70,11 +70,11 @@ class FormCreater extends React.Component {
 	}
 }
 
-FormCreater.propTypes = {
+FormCreator.propTypes = {
 	addFormSetting: PropTypes.func,
 	changeFormSetting: PropTypes.func,
 	deleteFormSetting: PropTypes.func,
 	formSettings: PropTypes.array
 };
 
-export default FormCreater;
+export default FormCreator;

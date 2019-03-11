@@ -4,7 +4,7 @@ import $ from 'jquery';
 import InputCreatorItem from './inputCreatorItem';
 import SelectCreatorItem from './selectCreatorItem';
 
-class formSetting extends React.Component {
+class FormCreatorItem extends React.Component {
 	constructor() {
 		super();
 
@@ -189,7 +189,7 @@ class formSetting extends React.Component {
 	}
 }
 
-formSetting.propTypes = {
+FormCreatorItem.propTypes = {
 	addFormSetting: PropTypes.func,
 	changeFormSetting: PropTypes.func,
 	deleteFormSetting: PropTypes.func,
@@ -197,4 +197,4 @@ formSetting.propTypes = {
 	id: PropTypes.number
 };
 
-export default formSetting;
+export default FormCreatorItem;
