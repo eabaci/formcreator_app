@@ -11,7 +11,7 @@
 	text-align: center;
 }
 
-.formView {
+.form-view {
 	background: #def5b9;
 	border: 1px solid green;
 	border-radius: 4px;
@@ -19,7 +19,7 @@
 	padding: 20px;
 }
 
-.formView .buttonContainer {
+.form-view .buttonContainer {
 	margin-top: 20px;
 	text-align: center;
 }
@@ -60,4 +60,15 @@
 
 .form-check-inline-label {
 	display: block;
+}
+
+.feedback-view {
+	background: #def5b9;
+	border: 1px solid green;
+	border-radius: 4px;
+	height: 150px;
+	line-height: 100px;
+	margin: 20px;
+	padding: 20px;
+	text-align: center;
 }

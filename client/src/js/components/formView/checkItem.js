@@ -8,7 +8,7 @@ class CheckItem extends React.Component {
 	option3Ref = React.createRef();
 
 	handleChange = () => {
-		let value = this.validation();
+		let { value } = this.validation();
 		let name = this.props.formSetting.name;
 		this.props.formDatas[name] = value;
 	};
@@ -30,12 +30,13 @@ class CheckItem extends React.Component {
 			op1Node.addClass('is-invalid');
 			op2Node.addClass('is-invalid');
 			op3Node.addClass('is-invalid');
+			return { value: value, valid: false };
 		} else {
 			op1Node.removeClass('is-invalid');
 			op2Node.removeClass('is-invalid');
 			op3Node.removeClass('is-invalid');
+			return { value: value, valid: true };
 		}
-		return value;
 	}
 
 	render() {

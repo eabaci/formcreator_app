@@ -1,15 +1,17 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const bodyParser = require('body-parser');
+var cors = require('cors');
 const logger = require('morgan');
-const Data = require('./data');
+const FormSetting = require('./formSetting');
+const FormData = require('./formData');
 
 const API_PORT = 8080;
 const app = express();
 const router = express.Router();
 
 // this is our MongoDB database
-const dbRoute = 'mongodb://localhost:27017/formsettings';
+const dbRoute = 'mongodb://localhost:27017/formapi';
 
 // connects our back end code with the database
 mongoose.connect(dbRoute, { useNewUrlParser: true });
@@ -23,14 +25,15 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // (optional) only made for logging and
 // bodyParser, parses the request body to be a readable json format
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(logger('dev'));
 
 // this is our get method
 // this method fetches all available data in our database
-router.get('/getData', async (req, res) => {
-	Data.find((err, data) => {
+router.get('/getFormSetting', async (req, res) => {
+	FormSetting.find((err, data) => {
 		if (err) return res.json({ success: false, error: err });
 		return res.json({ success: true, data: data });
 	});
@@ -38,10 +41,9 @@ router.get('/getData', async (req, res) => {
 
 // this is our update method
 // this method overwrites existing data in our database
-router.post('/updateData', (req, res) => {
+router.post('/updateFormSetting', (req, res) => {
 	const { id, update } = req.body;
-	console.log(update);
-	Data.findByIdAndUpdate(id, update, err => {
+	FormSetting.findByIdAndUpdate(id, update, err => {
 		if (err) return res.json({ success: false, error: err });
 		return res.json({ success: true });
 	});
@@ -49,10 +51,9 @@ router.post('/updateData', (req, res) => {
 
 // this is our delete method
 // this method removes existing data in our database
-router.delete('/deleteData', (req, res) => {
+router.delete('/deleteFormSetting', (req, res) => {
 	const { id } = req.body;
-	console.log(id);
-	Data.findByIdAndDelete(id, err => {
+	FormSetting.findByIdAndDelete(id, err => {
 		if (err) return res.send(err);
 		return res.json({ success: true });
 	});
@@ -60,9 +61,8 @@ router.delete('/deleteData', (req, res) => {
 
 // this is our create methid
 // this method adds new data in our database
-router.post('/putData', (req, res) => {
-	let data = new Data();
-
+router.post('/putFormSetting', (req, res) => {
+	let formSetting = new FormSetting();
 	const { id, name } = req.body;
 
 	if ((!id && id !== 0) || !name) {
@@ -71,11 +71,38 @@ router.post('/putData', (req, res) => {
 			error: 'INVALID INPUTS'
 		});
 	}
-	data.type = 'text';
-	data.size = 'large';
-	data.name = name;
-	data.id = id;
-	data.save(err => {
+	formSetting.type = 'text';
+	formSetting.size = 'large';
+	formSetting.name = name;
+	formSetting.id = id;
+	formSetting.save(err => {
+		if (err) return res.json({ success: false, error: err });
+		return res.json({ success: true });
+	});
+});
+
+// this method fetches all available form data in our database
+router.get('/getFormData', async (req, res) => {
+	FormData.find((err, data) => {
+		if (err) return res.json({ success: false, error: err });
+		return res.json({ success: true, data: data });
+	});
+});
+
+// this method adds new form data in our database
+router.post('/putFormData', (req, res) => {
+	let formData = new FormData();
+	const { id, object } = req.body;
+
+	if ((!id && id !== 0) || !object) {
+		return res.json({
+			success: false,
+			error: 'INVALID INPUTS'
+		});
+	}
+	formData.object = object;
+	formData.id = id;
+	formData.save(err => {
 		if (err) return res.json({ success: false, error: err });
 		return res.json({ success: true });
 	});

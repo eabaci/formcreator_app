@@ -11,21 +11,18 @@ class App extends React.Component {
 		super();
 		this.state = {
 			formSettings: [],
-			counter: 0,
 			formDatas: {}
 		};
 
 		this.formViewRef = React.createRef();
-		this.addFormSetting = this.addFormSetting.bind(this);
 	}
 
 	getDataFromDb = () => {
-		fetch('http://localhost:8080/api/getData')
+		fetch('http://localhost:8080/api/getFormSetting')
 			.then(data => data.json())
 			.then(res =>
 				this.setState({
-					formSettings: res.data,
-					counter: res.data.length
+					formSettings: res.data
 				})
 			);
 	};
@@ -45,7 +42,7 @@ class App extends React.Component {
 		});
 
 		axios
-			.post('http://localhost:8080/api/updateData', {
+			.post('http://localhost:8080/api/updateFormSetting', {
 				id: objIdToUpdate,
 				update: {
 					label: formSetting.label,
@@ -66,38 +63,25 @@ class App extends React.Component {
 		if (name == 'regExp') this.formViewRef.current.validation(index);
 	};
 
-	addFormSetting(name) {
-		// let currentIds = this.state.data.map(data => data.id);
-		// let idToBeAdded = 0;
-		// while (currentIds.includes(idToBeAdded)) {
-		// 	++idToBeAdded;
-		// }
-		let index = this.state.counter;
+	addFormSetting = name => {
+		let currentIds = this.state.formSettings.map(
+			formSetting => formSetting.id
+		);
+		let idToBeAdded = 0;
+		while (currentIds.includes(idToBeAdded)) {
+			++idToBeAdded;
+		}
 		let self = this;
 		axios
-			.post('http://localhost:8080/api/putData', {
-				id: index,
+			.post('http://localhost:8080/api/putFormSetting', {
+				id: idToBeAdded,
 				name: name
 			})
 			.then(function() {
 				self.getDataFromDb();
 			});
-	}
-
-	deleteFromDB = idTodelete => {
-		let objIdToDelete = null;
-		this.state.data.forEach(dat => {
-			if (dat.id == idTodelete) {
-				objIdToDelete = dat._id;
-			}
-		});
-
-		axios.delete('http://localhost:8080/api/deleteData', {
-			data: {
-				id: objIdToDelete
-			}
-		});
 	};
+
 	deleteFormSetting = index => {
 		let objIdToDelete = null;
 		let formSettings = this.state.formSettings;
@@ -109,7 +93,7 @@ class App extends React.Component {
 		});
 
 		axios
-			.delete('http://localhost:8080/api/deleteData', {
+			.delete('http://localhost:8080/api/deleteFormSetting', {
 				data: {
 					id: objIdToDelete
 				}
@@ -120,8 +104,19 @@ class App extends React.Component {
 	};
 
 	saveFormData = formDatas => {
-		this.setState({ formDatas: formDatas });
-		this.formViewRef.current.validation();
+		fetch('http://localhost:8080/api/getFormData')
+			.then(data => data.json())
+			.then(res => {
+				let currentIds = res.data.map(formData => formData.id);
+				let idToBeAdded = 0;
+				while (currentIds.includes(idToBeAdded)) {
+					++idToBeAdded;
+				}
+				axios.post('http://localhost:8080/api/putFormData', {
+					id: idToBeAdded,
+					object: formDatas
+				});
+			});
 	};
 
 	render() {

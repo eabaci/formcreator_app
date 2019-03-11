@@ -7,7 +7,7 @@ class SelectItem extends React.Component {
 
 	handleChange = () => {
 		let name = this.props.formSetting.name;
-		let value = this.validation();
+		let { value } = this.validation();
 		this.props.formDatas[name] = value;
 	};
 
@@ -18,11 +18,14 @@ class SelectItem extends React.Component {
 		if (!value) {
 			node.addClass('is-invalid');
 			node.removeClass('is-valid');
+
+			return { value: value, valid: false };
 		} else {
 			node.removeClass('is-invalid');
 			node.addClass('is-valid');
+
+			return { value: value, valid: true };
 		}
-		return value;
 	}
 
 	render() {

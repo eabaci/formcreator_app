@@ -6,7 +6,7 @@ class TextAreaItem extends React.Component {
 	textareaRef = React.createRef();
 
 	handleChange = event => {
-		let value = this.validation();
+		let { value } = this.validation();
 		this.props.formDatas[event.target.name] = value;
 	};
 
@@ -21,12 +21,14 @@ class TextAreaItem extends React.Component {
 		if (regExp && !regExp.test(value)) {
 			node.addClass('is-invalid');
 			node.removeClass('is-valid');
+
+			return { value: value, valid: false };
 		} else {
 			node.addClass('is-valid');
 			node.removeClass('is-invalid');
-		}
 
-		return value;
+			return { value: value, valid: true };
+		}
 	}
 
 	render() {
