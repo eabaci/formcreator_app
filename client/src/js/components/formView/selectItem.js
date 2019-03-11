@@ -13,7 +13,7 @@ class SelectItem extends React.Component {
 
 	validation() {
 		let node = $(this.selectRef.current);
-		let value = this.selectRef.current.value;
+		let value = node.val();
 
 		if (!value) {
 			node.addClass('is-invalid');

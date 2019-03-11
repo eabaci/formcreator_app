@@ -5,12 +5,7 @@ import PropTypes from 'prop-types';
 import FormCreatorItem from './formCreatorItem';
 
 class FormCreator extends React.Component {
-	constructor() {
-		super();
-
-		this.add = this.add.bind(this);
-		this.inputRef = React.createRef();
-	}
+	inputRef = React.createRef();
 
 	validation(name) {
 		if (name) {
@@ -28,19 +23,19 @@ class FormCreator extends React.Component {
 			);
 	}
 
-	add() {
+	add = () => {
 		let name = this.inputRef.current.value;
 		if (this.validation(name)) this.props.addFormSetting(name);
-	}
+	};
 
 	render() {
 		return (
 			<React.Fragment>
-				{Object.keys(this.props.formSettings).map(formSetting => (
+				{this.props.formSettings.map(formSetting => (
 					<FormCreatorItem
-						key={this.props.formSettings[formSetting].id}
-						id={this.props.formSettings[formSetting].id}
-						formSetting={this.props.formSettings[formSetting]}
+						key={formSetting.id}
+						id={formSetting.id}
+						formSetting={formSetting}
 						changeFormSetting={this.props.changeFormSetting}
 						deleteFormSetting={this.props.deleteFormSetting}
 					/>

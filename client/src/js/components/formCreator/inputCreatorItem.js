@@ -1,32 +1,17 @@
 import React from 'react';
-import $ from 'jquery';
 import PropTypes from 'prop-types';
 
 class InputCreatorItem extends React.Component {
-	constructor() {
-		super();
-
-		this.handleChange = this.handleChange.bind(this);
-
-		this.inputRef = React.createRef();
-	}
-	handleChange() {
+	handleChange = () => {
 		let name = event.target.name;
 		let value = event.target.value;
 
 		this.props.onChange(name, value);
-	}
-	hide() {
-		let node = this.inputRef.current;
-		$(node).removeClass('invisible');
-	}
-	show() {
-		let node = this.inputRef.current;
-		$(node).addClass('invisible');
-	}
+	};
 	render() {
+		let cn = `form-group row ${this.props.className}`;
 		return (
-			<div className="form-group row" ref={this.inputRef}>
+			<div className={cn}>
 				<label className="col-sm-4 col-form-label">
 					{this.props.label}
 				</label>
@@ -50,5 +35,6 @@ InputCreatorItem.propTypes = {
 	label: PropTypes.string,
 	name: PropTypes.string,
 	value: PropTypes.string,
+	className: PropTypes.string,
 	onChange: PropTypes.func
 };

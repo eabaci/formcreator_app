@@ -7,13 +7,11 @@ class FormDataItem extends React.Component {
 	constructor() {
 		super();
 
-		this.toggleItem = this.toggleItem.bind(this);
-
 		this.labelRef = React.createRef();
 		this.textareaRef = React.createRef();
 	}
 
-	toggleItem() {
+	toggleItem = () => {
 		let formNode = $(this.textareaRef.current);
 		let labelNode = $(this.labelRef.current);
 		if (formNode.hasClass('invisible')) {
@@ -23,7 +21,7 @@ class FormDataItem extends React.Component {
 			formNode.addClass('invisible');
 			labelNode.removeClass('invisible');
 		}
-	}
+	};
 
 	render() {
 		return (

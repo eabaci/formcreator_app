@@ -1,8 +1,8 @@
-// /backend/data.js
+// /backend/formSetting.js
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-// this will be our data base's data structure
+// FormSettingSchema wird die Datenstruktur unserer Datenbank sein
 const FormSettingSchema = new Schema(
 	{
 		id: Number,
@@ -20,5 +20,5 @@ const FormSettingSchema = new Schema(
 	{ timestamps: true }
 );
 
-// export the new Schema so we could modify it using Node.js
+// Exportieren des neuen FormSettingSchema
 module.exports = mongoose.model('FormSetting', FormSettingSchema);

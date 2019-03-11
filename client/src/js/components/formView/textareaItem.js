@@ -14,9 +14,8 @@ class TextAreaItem extends React.Component {
 		let node = $(this.textareaRef.current);
 		let value = node.val();
 		let res = this.props.formSetting.regExp;
-
-		var match = res ? res.match(new RegExp('^/(.*?)/([gimy]*)$')) : false;
-		var regExp = match ? new RegExp(match[1], match[2]) : '';
+		var ma = res ? res.match(new RegExp('^/(.*?)/([gimy]*)$')) : false;
+		var regExp = ma && ma[1] && ma[2] ? new RegExp(ma[1], ma[2]) : '';
 
 		if (regExp && !regExp.test(value)) {
 			node.addClass('is-invalid');

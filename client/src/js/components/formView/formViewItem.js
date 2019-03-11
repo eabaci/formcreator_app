@@ -13,6 +13,7 @@ class FormViewItem extends React.Component {
 		let { value, valid } = this.ref.current.validation();
 		return { value: value, valid: valid };
 	}
+
 	formatInputField(type) {
 		if (type == 'radio' || type == 'checkbox') {
 			return (

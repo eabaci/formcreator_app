@@ -6,11 +6,11 @@ class FormData extends React.Component {
 	render() {
 		return (
 			<React.Fragment>
-				{Object.keys(this.props.formSettings).map(formSetting => (
+				{this.props.formSettings.map(formSetting => (
 					<FormDataItem
-						key={this.props.formSettings[formSetting].id}
-						id={this.props.formSettings[formSetting].id}
-						formSetting={this.props.formSettings[formSetting]}
+						key={formSetting.id}
+						id={formSetting.id}
+						formSetting={formSetting}
 					/>
 				))}
 			</React.Fragment>

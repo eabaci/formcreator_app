@@ -15,7 +15,6 @@ class FormView extends React.Component {
 
 	validation = index => {
 		let self = this;
-
 		let validArray = [];
 
 		if (index) {
@@ -29,10 +28,8 @@ class FormView extends React.Component {
 		}
 
 		if (validArray.every(val => val)) {
-			let formViewNode = $(this.formViewRef.current);
-			let feedbackViewNode = $(this.feedbackViewRef.current);
-			formViewNode.addClass('invisible');
-			feedbackViewNode.removeClass('invisible');
+			$(this.formViewRef.current).addClass('invisible');
+			$(this.feedbackViewRef.current).removeClass('invisible');
 
 			this.props.saveFormData(this.props.formDatas);
 		}
@@ -50,16 +47,14 @@ class FormView extends React.Component {
 					<p>Sie haben das Formular erfolgreich abgeschickt!!!</p>
 				</div>
 				<form className="form-view" ref={this.formViewRef}>
-					{Object.keys(this.props.formSettings).map(formSetting => {
+					{this.props.formSettings.map(formSetting => {
 						let ref = React.createRef();
 						self.refs.push(ref);
 						return (
 							<FormViewItem
-								key={this.props.formSettings[formSetting].id}
-								id={this.props.formSettings[formSetting].id}
-								formSetting={
-									this.props.formSettings[formSetting]
-								}
+								key={formSetting.id}
+								id={formSetting.id}
+								formSetting={formSetting}
 								formDatas={this.props.formDatas}
 								ref={ref}
 							/>

@@ -2,18 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class SelectCreatorItem extends React.Component {
-	constructor() {
-		super();
-
-		this.handleChange = this.handleChange.bind(this);
-	}
-
-	handleChange(event) {
+	handleChange = event => {
 		let name = event.target.name;
 		let value = event.target.value;
 
 		this.props.onChange(name, value);
-	}
+	};
 
 	render() {
 		return (

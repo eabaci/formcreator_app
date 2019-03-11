@@ -17,7 +17,7 @@ class App extends React.Component {
 		this.formViewRef = React.createRef();
 	}
 
-	getDataFromDb = () => {
+	getFormSetting = () => {
 		fetch('http://localhost:8080/api/getFormSetting')
 			.then(data => data.json())
 			.then(res =>
@@ -28,7 +28,7 @@ class App extends React.Component {
 	};
 
 	componentDidMount() {
-		this.getDataFromDb();
+		this.getFormSetting();
 	}
 
 	changeFormSetting = (formSetting, index, name) => {
@@ -57,7 +57,7 @@ class App extends React.Component {
 				}
 			})
 			.then(function() {
-				self.getDataFromDb();
+				self.getFormSetting();
 			});
 
 		if (name == 'regExp') this.formViewRef.current.validation(index);
@@ -78,7 +78,7 @@ class App extends React.Component {
 				name: name
 			})
 			.then(function() {
-				self.getDataFromDb();
+				self.getFormSetting();
 			});
 	};
 
@@ -99,7 +99,7 @@ class App extends React.Component {
 				}
 			})
 			.then(function() {
-				self.getDataFromDb();
+				self.getFormSetting();
 			});
 	};
 
