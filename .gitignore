@@ -1,0 +1,7 @@
+package-lock.json
+node_modules/*
+client/node_modules/*
+client/build/*
+client/package-lock.json
+backend/node_modules/*
+backend/package-lock.json
