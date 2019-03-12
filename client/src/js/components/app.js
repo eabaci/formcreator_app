@@ -26,10 +26,15 @@ class App extends React.Component {
 			);
 	};
 
+	// Die componentDidMount Methode
+	// Hier werden die FormSettings mit einem GET Request geladen.
 	componentDidMount() {
+		console.log('componentDidMount');
 		this.getFormSetting();
 	}
 
+	// Die changeFormSetting Methode
+	// Hier wird das entsprechende FormSetting aktualisiert mit einem POST Request.
 	changeFormSetting = (formSetting, index, name) => {
 		let formSettings = this.state.formSettings;
 		let objIdToUpdate = null;
@@ -62,6 +67,8 @@ class App extends React.Component {
 		if (name == 'regExp') this.formViewRef.current.validation(index);
 	};
 
+	// Die addFormSetting Methode
+	// Hier wird ein neues FormSetting hinzugefügt mit einem POST Request.
 	addFormSetting = name => {
 		let currentIds = this.state.formSettings.map(
 			formSetting => formSetting.id
@@ -81,6 +88,8 @@ class App extends React.Component {
 			});
 	};
 
+	// Die deleteFormSetting Methode
+	// Hier wird das entsprechende FormSetting gelöscht mit einem DELETE Request.
 	deleteFormSetting = index => {
 		let objIdToDelete = null;
 		let formSettings = this.state.formSettings;
@@ -102,6 +111,9 @@ class App extends React.Component {
 			});
 	};
 
+	// Die saveFormData Methode
+	// Wird aufgerufen nach dem das Formular erfolgreich ausgefüllt wurde
+	// und schickt die Formular Daten mit einem POST Request zum Server
 	saveFormData = formDatas => {
 		fetch('http://localhost:8080/api/getFormData')
 			.then(data => data.json())
@@ -118,7 +130,10 @@ class App extends React.Component {
 			});
 	};
 
+	// Die render Methode
+	// Es werden die Komponenten FormCreator, FormView, FormData gerendert
 	render() {
+		console.log('render app');
 		return (
 			<Container fluid="true">
 				<Row>

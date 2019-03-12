@@ -4,9 +4,19 @@ import PropTypes from 'prop-types';
 
 import FormCreatorItem from './formCreatorItem';
 
+// Komponente FormCreator
+// props:
+// formSettings (array)
+// addFormSetting (func)
+// changeFormSetting (func)
+// deleteFormSetting (func)
+
 class FormCreator extends React.Component {
 	inputRef = React.createRef();
 
+	// Die validation Methode
+	// Der name wird geprüft. Name darf nicht leer sein
+	// und muss einmalig sein
 	validation(name) {
 		if (name) {
 			let elem = _.findKey(this.props.formSettings, function(fs) {
@@ -23,11 +33,18 @@ class FormCreator extends React.Component {
 			);
 	}
 
+	// Die add Methode
+	// Hier wir ein neuer FormCreator hinzugefügt
+	// zunächst wird der name geprüft
 	add = () => {
 		let name = this.inputRef.current.value;
 		if (this.validation(name)) this.props.addFormSetting(name);
 	};
 
+	// Die render Methode
+	// Die einzelnen FormCreator Bereiche (FormCreatorItem)
+	// werden über das property formSettings gemappt
+	// Am Ende wird die Add FormCreator View gerendert
 	render() {
 		return (
 			<React.Fragment>

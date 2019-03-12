@@ -4,6 +4,11 @@ import $ from 'jquery';
 
 import FormViewItem from './formViewItem';
 
+// Komponente FormView
+// props:
+// formSettings (array)
+// saveFormData (func)
+
 class FormView extends React.Component {
 	formViewRef = React.createRef();
 	feedbackViewRef = React.createRef();
@@ -13,6 +18,9 @@ class FormView extends React.Component {
 		this.validation();
 	};
 
+	// Die validation Methode
+	// Es wird geprüft ob alle Felder des Formulars valide sind
+	// wenn alle Felder valide sind wird die saveFormData Methode aufgerufen
 	validation = index => {
 		let self = this;
 		let validArray = [];
@@ -42,6 +50,10 @@ class FormView extends React.Component {
 		}
 	};
 
+	// Die render Methode
+	// Hier wird eine Feedback View geladen und ein Formular
+	// Die einzelnen Felder (FormViewItem) des Formulars
+	// werden über das property formSettings gemappt
 	render() {
 		let self = this;
 		self.refs = [];

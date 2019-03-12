@@ -4,9 +4,17 @@ import $ from 'jquery';
 import InputCreatorItem from './inputCreatorItem';
 import SelectCreatorItem from './selectCreatorItem';
 
+// Komponente FormCreatorItem
+// props:
+// id (number)
+// formSetting (object)
+// changeFormSetting (func)
+// deleteFormSetting (func)
+
 class FormCreatorItem extends React.Component {
 	labelRef = React.createRef();
 	formRef = React.createRef();
+
 	typeOptions = {
 		radio: 'Radio',
 		checkbox: 'Checkbox',
@@ -21,11 +29,17 @@ class FormCreatorItem extends React.Component {
 		large: 'Large'
 	};
 
+	// Die componentDidMount Methode
+	// Ruft die Methode changeFormSetting auf und übergibt die
+	// Informationen der Änderung
 	componentDidMount() {
 		this.formSetting = this.props.formSetting || {};
 		this.formSetting['id'] = this.props.id;
 	}
 
+	// Die handleChange Methode
+	// Ruft die Methode changeFormSetting auf und übergibt die
+	// Informationen der Änderung
 	handleChange = (name, value) => {
 		this.formSetting[name] = value;
 		this.props.changeFormSetting(this.formSetting, this.props.id, name);
@@ -35,10 +49,16 @@ class FormCreatorItem extends React.Component {
 		event.preventDefault();
 	};
 
+	// Die delete Methode
+	// Ruft die Methode deleteFormSetting auf und übergibt die
+	// ID des zu löschenden FormSetting
 	delete = () => {
 		this.props.deleteFormSetting(this.props.id);
 	};
 
+	// Die toggleItem Methode
+	// Hierbei wird der Bereich des FormSettings geöffnet
+	// oder geschlossen
 	toggleItem = () => {
 		let formNode = $(this.formRef.current);
 		let labelNode = $(this.labelRef.current);
@@ -51,9 +71,11 @@ class FormCreatorItem extends React.Component {
 		}
 	};
 
+	// Die render Methode
+	// Die einzelnen FormCreator Bereiche (InputCreatorItem, SelectCreatorItem)
+	// werden gerendert
+	// So wie die Delete und Close Button
 	render() {
-		let regExp = this.props.formSetting.regExp;
-		let regExpString = regExp ? regExp.toString() : '';
 		let cnCheckType =
 			this.props.formSetting.type == 'radio' ||
 			this.props.formSetting.type == 'checkbox' ||
@@ -65,6 +87,8 @@ class FormCreatorItem extends React.Component {
 			this.props.formSetting.type == 'textarea'
 				? 'invisible'
 				: '';
+		let regExp = this.props.formSetting.regExp;
+		let regExpString = regExp ? regExp.toString() : '';
 
 		return (
 			<div className="form-wrapper">

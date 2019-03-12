@@ -6,6 +6,11 @@ import TextareaItem from './textareaItem';
 import SelectItem from './selectItem';
 import InputItem from './inputItem';
 
+// Komponente FormViewItem
+// props:
+// formSetting (object)
+// id (number)
+
 class FormViewItem extends React.Component {
 	ref = React.createRef();
 
@@ -14,6 +19,9 @@ class FormViewItem extends React.Component {
 		return { value: value, name: name, valid: valid };
 	}
 
+	// Die formatInputField Methode
+	// Hier wird die entsprechende Komponente zum Type
+	// gerendert (CheckItem, SelectItem, TextareaItem, InputItem)
 	formatInputField(type) {
 		if (type == 'radio' || type == 'checkbox') {
 			return (
@@ -49,6 +57,10 @@ class FormViewItem extends React.Component {
 			);
 		}
 	}
+
+	// Die render Methode
+	// Ruft die Methode formInputField auf und übergibt
+	// den Type des formSetting Objekts
 	render() {
 		return this.formatInputField(this.props.formSetting.type);
 	}
