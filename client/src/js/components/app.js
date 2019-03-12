@@ -10,8 +10,7 @@ class App extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			formSettings: [],
-			formDatas: {}
+			formSettings: []
 		};
 
 		this.formViewRef = React.createRef();
@@ -135,7 +134,6 @@ class App extends React.Component {
 						<h1 className="headline">Formular Creator</h1>
 						<FormView
 							formSettings={this.state.formSettings}
-							formDatas={this.state.formDatas}
 							saveFormData={this.saveFormData}
 							ref={this.formViewRef}
 						/>

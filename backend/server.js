@@ -10,28 +10,28 @@ const API_PORT = 8080;
 const app = express();
 const router = express.Router();
 
-// this is our MongoDB database
+// MongoDB-Datenbank
 const dbRoute = 'mongodb://localhost:27017/formapi';
 
-// connects our back end code with the database
+// verbindet unseren Backend-Code mit der Datenbank
 mongoose.connect(dbRoute, { useNewUrlParser: true });
 
 let db = mongoose.connection;
 
 db.once('open', () => console.log('connected to the database'));
 
-// checks if connection with the database is successful
+// prüft, ob die Verbindung zur Datenbank erfolgreich ist
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-// (optional) only made for logging and
-// bodyParser, parses the request body to be a readable json format
+// (optional) nur für das Logging und
+// bodyParser, parst den Request-Body in ein lesbares Json-Format
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(logger('dev'));
 
-// this is our get method
-// this method fetches all available data in our database
+// Die get Methode
+// Diese Methode ruft alle verfügbaren Daten in unserer Datenbank ab
 router.get('/getFormSetting', async (req, res) => {
 	FormSetting.find((err, data) => {
 		if (err) return res.json({ success: false, error: err });
@@ -39,8 +39,8 @@ router.get('/getFormSetting', async (req, res) => {
 	});
 });
 
-// this is our update method
-// this method overwrites existing data in our database
+// Die update Methode
+// Diese Methode überschreibt vorhandene Daten in unserer Datenbank
 router.post('/updateFormSetting', (req, res) => {
 	const { id, update } = req.body;
 	FormSetting.findByIdAndUpdate(id, update, err => {
@@ -49,8 +49,8 @@ router.post('/updateFormSetting', (req, res) => {
 	});
 });
 
-// this is our delete method
-// this method removes existing data in our database
+// Die delete Methode
+// Diese Methode entfernt vorhandene Daten in unserer Datenbank
 router.delete('/deleteFormSetting', (req, res) => {
 	const { id } = req.body;
 	FormSetting.findByIdAndDelete(id, err => {
@@ -59,8 +59,8 @@ router.delete('/deleteFormSetting', (req, res) => {
 	});
 });
 
-// this is our create methid
-// this method adds new data in our database
+// Die create Methode
+// Diese Methode fügt neue Daten in unsere Datenbank ein
 router.post('/putFormSetting', (req, res) => {
 	let formSetting = new FormSetting();
 	const { id, name } = req.body;
@@ -81,7 +81,7 @@ router.post('/putFormSetting', (req, res) => {
 	});
 });
 
-// this method fetches all available form data in our database
+// Diese Methode ruft alle verfügbaren Daten in unserer Datenbank ab
 router.get('/getFormData', async (req, res) => {
 	FormData.find((err, data) => {
 		if (err) return res.json({ success: false, error: err });
@@ -89,7 +89,7 @@ router.get('/getFormData', async (req, res) => {
 	});
 });
 
-// this method adds new form data in our database
+// Diese Methode fügt neue Daten in unserer Datenbank hinzu
 router.post('/putFormData', (req, res) => {
 	let formData = new FormData();
 	const { id, object } = req.body;
@@ -108,8 +108,8 @@ router.post('/putFormData', (req, res) => {
 	});
 });
 
-// append /api for our http requests
+// Fügen Sie /api für unsere http-Anfragen hinzu
 app.use('/api', router);
 
-// launch our backend into a port
+// Startet das Backend in diesem PORT
 app.listen(API_PORT, () => console.log(`LISTENING ON PORT ${API_PORT}`));

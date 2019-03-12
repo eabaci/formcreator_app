@@ -6,25 +6,24 @@ class SelectItem extends React.Component {
 	selectRef = React.createRef();
 
 	handleChange = () => {
-		let name = this.props.formSetting.name;
-		let { value } = this.validation();
-		this.props.formDatas[name] = value;
+		this.validation();
 	};
 
 	validation() {
 		let node = $(this.selectRef.current);
+		let name = this.props.formSetting.name;
 		let value = node.val();
 
 		if (!value) {
 			node.addClass('is-invalid');
 			node.removeClass('is-valid');
 
-			return { value: value, valid: false };
+			return { value: value, name: name, valid: false };
 		} else {
 			node.removeClass('is-invalid');
 			node.addClass('is-valid');
 
-			return { value: value, valid: true };
+			return { value: value, name: name, valid: true };
 		}
 	}
 
@@ -61,6 +60,5 @@ export default SelectItem;
 
 SelectItem.propTypes = {
 	formSetting: PropTypes.object,
-	formDatas: PropTypes.object,
 	id: PropTypes.number
 };

@@ -10,8 +10,8 @@ class FormViewItem extends React.Component {
 	ref = React.createRef();
 
 	validation() {
-		let { value, valid } = this.ref.current.validation();
-		return { value: value, valid: valid };
+		let { value, name, valid } = this.ref.current.validation();
+		return { value: value, name: name, valid: valid };
 	}
 
 	formatInputField(type) {
@@ -20,7 +20,6 @@ class FormViewItem extends React.Component {
 				<CheckItem
 					id={this.props.id}
 					formSetting={this.props.formSetting}
-					formDatas={this.props.formDatas}
 					ref={this.ref}
 				/>
 			);
@@ -29,7 +28,6 @@ class FormViewItem extends React.Component {
 				<SelectItem
 					id={this.props.id}
 					formSetting={this.props.formSetting}
-					formDatas={this.props.formDatas}
 					ref={this.ref}
 				/>
 			);
@@ -38,7 +36,6 @@ class FormViewItem extends React.Component {
 				<TextareaItem
 					id={this.props.id}
 					formSetting={this.props.formSetting}
-					formDatas={this.props.formDatas}
 					ref={this.ref}
 				/>
 			);
@@ -47,7 +44,6 @@ class FormViewItem extends React.Component {
 				<InputItem
 					id={this.props.id}
 					formSetting={this.props.formSetting}
-					formDatas={this.props.formDatas}
 					ref={this.ref}
 				/>
 			);
@@ -60,7 +56,6 @@ class FormViewItem extends React.Component {
 
 FormViewItem.propTypes = {
 	formSetting: PropTypes.object,
-	formDatas: PropTypes.object,
 	id: PropTypes.number
 };
 

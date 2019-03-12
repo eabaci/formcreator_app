@@ -7,27 +7,29 @@ class InputItem extends React.Component {
 
 	validation() {
 		let node = $(this.inputRef.current);
+		let name = this.inputRef.current.name;
 		let value = node.val();
 		let res = this.props.formSetting.regExp;
 		var ma = res ? res.match(new RegExp('^/(.*?)/([gimy]*)$')) : false;
-		var regExp = ma && ma[1] && ma[2] ? new RegExp(ma[1], ma[2]) : '';
+		var regExp = ma && ma[1] && ma[2] ? new RegExp(ma[1], ma[2]) : null;
 
 		if (regExp && !regExp.test(value)) {
 			node.addClass('is-invalid');
 			node.removeClass('is-valid');
 
-			return { value: value, valid: false };
-		} else {
+			return { value: value, name: name, valid: false };
+		} else if (ma && ma[1] && ma[2]) {
 			node.addClass('is-valid');
 			node.removeClass('is-invalid');
 
-			return { value: value, valid: true };
+			return { value: value, name: name, valid: true };
+		} else {
+			return { value: value, name: name, valid: true };
 		}
 	}
 
-	handleChange = event => {
-		let { value } = this.validation();
-		this.props.formDatas[event.target.name] = value;
+	handleChange = () => {
+		this.validation();
 	};
 
 	render() {
@@ -53,7 +55,6 @@ class InputItem extends React.Component {
 
 InputItem.propTypes = {
 	formSetting: PropTypes.object,
-	formDatas: PropTypes.object,
 	id: PropTypes.number
 };
 

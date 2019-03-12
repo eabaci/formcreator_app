@@ -5,13 +5,13 @@ import PropTypes from 'prop-types';
 class TextAreaItem extends React.Component {
 	textareaRef = React.createRef();
 
-	handleChange = event => {
-		let { value } = this.validation();
-		this.props.formDatas[event.target.name] = value;
+	handleChange = () => {
+		this.validation();
 	};
 
 	validation() {
 		let node = $(this.textareaRef.current);
+		let name = this.textareaRef.current;
 		let value = node.val();
 		let res = this.props.formSetting.regExp;
 		var ma = res ? res.match(new RegExp('^/(.*?)/([gimy]*)$')) : false;
@@ -21,12 +21,12 @@ class TextAreaItem extends React.Component {
 			node.addClass('is-invalid');
 			node.removeClass('is-valid');
 
-			return { value: value, valid: false };
+			return { value: value, name: name, valid: false };
 		} else {
 			node.addClass('is-valid');
 			node.removeClass('is-invalid');
 
-			return { value: value, valid: true };
+			return { value: value, name: name, valid: true };
 		}
 	}
 
@@ -53,7 +53,6 @@ class TextAreaItem extends React.Component {
 
 TextAreaItem.propTypes = {
 	formSetting: PropTypes.object,
-	formDatas: PropTypes.object,
 	id: PropTypes.number
 };
 

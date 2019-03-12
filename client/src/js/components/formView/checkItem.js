@@ -8,12 +8,11 @@ class CheckItem extends React.Component {
 	option3Ref = React.createRef();
 
 	handleChange = () => {
-		let { value } = this.validation();
-		let name = this.props.formSetting.name;
-		this.props.formDatas[name] = value;
+		this.validation();
 	};
 
 	validation() {
+		let name = this.props.formSetting.name;
 		let op1Node = $(this.option1Ref.current);
 		let op2Node = $(this.option2Ref.current);
 		let op3Node = $(this.option3Ref.current);
@@ -30,12 +29,12 @@ class CheckItem extends React.Component {
 			op1Node.addClass('is-invalid');
 			op2Node.addClass('is-invalid');
 			op3Node.addClass('is-invalid');
-			return { value: value, valid: false };
+			return { value: value, name: name, valid: false };
 		} else {
 			op1Node.removeClass('is-invalid');
 			op2Node.removeClass('is-invalid');
 			op3Node.removeClass('is-invalid');
-			return { value: value, valid: true };
+			return { value: value, name: name, valid: true };
 		}
 	}
 
@@ -93,6 +92,5 @@ export default CheckItem;
 
 CheckItem.propTypes = {
 	formSetting: PropTypes.object,
-	formDatas: PropTypes.object,
 	id: PropTypes.number
 };

@@ -16,22 +16,29 @@ class FormView extends React.Component {
 	validation = index => {
 		let self = this;
 		let validArray = [];
+		let valueArray = [];
+		let formDatas = {};
 
 		if (index) {
 			self.refs[index].current.validation();
 			validArray.push(false);
 		} else {
 			for (let ref of self.refs) {
-				let { valid } = ref.current.validation();
+				let { valid, value, name } = ref.current.validation();
 				validArray.push(valid);
+				valueArray.push(value);
+				formDatas[name] = value;
 			}
 		}
 
-		if (validArray.every(val => val)) {
+		if (
+			validArray.every(val => val) &&
+			valueArray.every(val => val != '')
+		) {
 			$(this.formViewRef.current).addClass('invisible');
 			$(this.feedbackViewRef.current).removeClass('invisible');
 
-			this.props.saveFormData(this.props.formDatas);
+			this.props.saveFormData(formDatas);
 		}
 	};
 
@@ -55,7 +62,6 @@ class FormView extends React.Component {
 								key={formSetting.id}
 								id={formSetting.id}
 								formSetting={formSetting}
-								formDatas={this.props.formDatas}
 								ref={ref}
 							/>
 						);
@@ -77,7 +83,6 @@ class FormView extends React.Component {
 
 FormView.propTypes = {
 	formSettings: PropTypes.array,
-	formDatas: PropTypes.object,
 	saveFormData: PropTypes.func
 };
 
